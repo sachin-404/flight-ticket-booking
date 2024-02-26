@@ -9,4 +9,4 @@ class Flight(models.Model):
     seats = models.JSONField(default=list)
 
     def __str__(self):
-        return f"Flight {self.flight_number}"
+        return f"Flight {self.flight_name}"
