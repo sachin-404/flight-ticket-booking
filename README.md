@@ -16,6 +16,7 @@ This repository contains the codes for flight booking system built using django.
 - **Database**: SQL
 
 ## Database
+- Django Default Auth_system and access control
 ### Flights Table
 - flight_name
 - departure_time
@@ -23,6 +24,7 @@ This repository contains the codes for flight booking system built using django.
 
 ### Users
 - it has two types of users: **admin** and **regular user**
+- User(SignUp, Login, Logout),  Admin[Login, create using django-admin]
 - admins can:
     - add new flight details
     - remove flights
