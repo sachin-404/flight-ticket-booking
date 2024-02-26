@@ -1,8 +1,8 @@
 """
-URL configuration for flight_booking project.
+URL configuration for flight_booking_system project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.0/topics/http/urls/
+    https://docs.djangoproject.com/en/4.2/topics/http/urls/
 Examples:
 Function views
     1. Add an import:  from my_app import views
@@ -14,10 +14,16 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+
+
+admin.site.site_header = "✈️ Flight Booking Admin"
+admin.site.site_title = "✈️ Flight Booking Admin Portal"
+admin.site.index_title = "Welcome to ✈️ Flight Booking Researcher Portal"
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
+    path('admin/', admin.site.urls),
+    path('', include('main.urls')),
+    path('', include('django.contrib.auth.urls')),
 ]
