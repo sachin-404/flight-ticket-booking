@@ -81,3 +81,8 @@ def remove_flight(request, flight_id):
     flight = get_object_or_404(Flight, pk=flight_id)
     flight.delete()
     return redirect('flight_list')
+
+@login_required(login_url='/login')
+def logout_view(request):
+    logout(request) 
+    return redirect('login')
