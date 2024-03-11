@@ -5,6 +5,8 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth import login, logout, authenticate
 from .models import Flight
 from django.db.models import Q
+from django.contrib import messages
+
 
 @login_required(login_url='/login')
 def home(request):
@@ -55,7 +57,15 @@ def book_flight(request, flight_id):
             seats[seat_number - 1] = user_id
             flight.save()
             # flights = Flight.objects.order_by('departure_time')
+            messages.success(request, 'Seat booked successfully.')
             return redirect('flight_list')
+        else:
+            if seat_number <= 0 or seat_number > len(seats):
+                messages.error(request, 'Invalid seat number.')
+            elif seat_number in available_seats and not available_seats[seat_number]:
+                messages.error(request, 'Seat is already booked.')
+            else:
+                messages.error(request, 'An unexpected error occurred.')
 
     return render(request, 'main/book_flight.html', {'flight': flight, 'available_seats': available_seats})
 
