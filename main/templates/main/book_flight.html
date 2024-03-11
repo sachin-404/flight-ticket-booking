@@ -12,7 +12,11 @@
     <ul>
       {% for seat_number, seat in available_seats.items %}
         <li>
-          Seat {{ seat_number }}{% if seat %}: Available {% endif %}
+          {% if seat %}
+          Seat {{ seat_number }}: Available
+          {% else %}
+          Seat {{ seat_number }}: Not Available
+          {% endif %}
         </li>
       {% endfor %}
     </ul>

@@ -44,19 +44,18 @@ def book_flight(request, flight_id):
     flight = get_object_or_404(Flight, pk=flight_id)
     seats = flight.seats
 
-    available_seats = {i+1: seats[i] is -1 for i in range(len(seats)) if seats[i] is -1}
-    print(available_seats)
+    available_seats = {i + 1: seats[i] == -1 for i in range(len(seats))}
+    # print(available_seats)
     if request.method == 'POST':
         seat_number = int(request.POST['seat_number'])
         user_id = request.POST['user_id']
         print(seat_number,user_id)
 
-        if seat_number in available_seats and available_seats[seat_number]:
-            seats[seat_number-1] = user_id
+        if 0 < seat_number <= len(seats) and seat_number in available_seats and available_seats[seat_number] and seats[seat_number - 1] == -1:
+            seats[seat_number - 1] = user_id
             flight.save()
-            flights = Flight.objects.order_by('departure_time')
-            # redirect('flight_list', flights= flights)
-            return render(request, 'main/flight_list.html', {'flights': flights})
+            # flights = Flight.objects.order_by('departure_time')
+            return redirect('flight_list')
 
     return render(request, 'main/book_flight.html', {'flight': flight, 'available_seats': available_seats})
 
